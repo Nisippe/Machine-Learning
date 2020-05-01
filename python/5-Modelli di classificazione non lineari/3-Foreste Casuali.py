@@ -44,10 +44,15 @@ accuracy_test = accuracy_score(Y_test, y_pred)
 
 print("ACCURACY: TRAIN=%.4f TEST=%.4f" % (accuracy_train,accuracy_test))
 
-from sklearn.tree import export_graphviz
 
-dotfile=open("tree.dot","w")
-export_graphviz(tree, out_file = dotfile, feature_names = titanic.columns.drop("Survived"))
-dotfile.close()
 
-#go webgraphviz.com
+#COMINCIA QUA
+from sklearn.ensemble import RandomForestClassifier
+forest=RandomForestClassifier(random_state=False,max_depth=8,n_estimators=30)
+forest.fit(X_train,Y_train)
+Y_pred_train=forest.predict(X_train)
+Y_pred=forest.predict(X_test)
+
+accuracy_train=accuracy_score(Y_train,Y_pred_train)
+accuracy_test=accuracy_score(Y_test,Y_pred)
+print("ACCURACY: TRAIN=%.4f TEST=%.4f" % (accuracy_train,accuracy_test))
